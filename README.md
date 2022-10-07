@@ -5,7 +5,7 @@
 
 整个章节的思维导图：
 
-![实模式下的MBR加载器](/Users/admin/Desktop/TinyOs/assets/实模式下的MBR加载器.png)
+![实模式下的MBR加载器](assets/实模式下的MBR加载器.png)
 
 目标：在实模式下，写一个加载程序，将放在磁盘的程序代码加载进进内存中，并且执行。
 
@@ -21,7 +21,7 @@
 
 #### 1.2 硬盘访问控制
 
-![image-20221007133252703](/Users/admin/Desktop/TinyOs/assets/image-20221007133252703.png)
+![image-20221007133252703](assets/image-20221007133252703.png)
 
 #### 1.3 其他
 
