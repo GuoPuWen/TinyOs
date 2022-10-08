@@ -46,7 +46,7 @@ SECTION MBR vstart=0x7c00         ;MBR地址 计算机开机后访问硬盘时�
 	 
    mov eax,LOADER_START_SECTOR      ; 起始扇区 lba 地址     00000000_00000002 
    mov bx,LOADER_BASE_ADDR          ; 写入的地址
-   mov cx,1			            ; 待读入的扇区数
+   mov cx,2		            ; 待读入的扇区数
    call rd_disk_m_16		      ; 读取程序
   
    jmp LOADER_BASE_ADDR
