@@ -27,7 +27,7 @@
 
    gdt_ptr  dw  GDT_LIMIT 
 	    dd  GDT_BASE
-   loadermsg db '2 loader in real.'
+   loadermsg db '3 loader in real.'
 
 loader_start:
 
@@ -91,33 +91,34 @@ loader_start:
 
 
 ;    ;-----------------  打开A20  ----------------
-;    in al,0x92
-;    or al,0000_0010B
-;    out 0x92,al
+   in al,0x92
+   or al,0000_0010B
+   out 0x92,al
 
 ;    ;-----------------  加载GDT  ----------------
-;    lgdt [gdt_ptr]
+   lgdt [gdt_ptr]
 
 
 ;    ;-----------------  cr0第0位置1  ----------------
-;    mov eax, cr0
-;    or eax, 0x00000001
-;    mov cr0, eax
+   mov eax, cr0
+   or eax, 0x00000001
+   mov cr0, eax
 
-;    ;jmp dword SELECTOR_CODE:p_mode_start	     ; 刷新流水线，避免分支预测的影响,这种cpu优化策略，最怕jmp跳转，
-;    jmp  SELECTOR_CODE:p_mode_start	     ; 刷新流水线，避免分支预测的影响,这种cpu优化策略，最怕jmp跳转，
+   jmp dword SELECTOR_CODE:p_mode_start	     ; 刷新流水线，避免分支预测的影响,这种cpu优化策略，最怕jmp跳转，
+   jmp  SELECTOR_CODE:p_mode_start	     ; 刷新流水线，避免分支预测的影响,这种cpu优化策略，最怕jmp跳转，
 ; 					     ; 这将导致之前做的预测失效，从而起到了刷新的作用。
+                  ;如果不刷新流水线，由于之前是实模式用16位驿码，因为流水线会先把后面的指令加载 那么就会出错32位的用16位的驿码
 
-; [bits 32]
-; p_mode_start:
-;    mov ax, SELECTOR_DATA
-;    mov ds, ax
-;    mov es, ax
-;    mov ss, ax
-;    mov esp,LOADER_STACK_TOP
-;    mov ax, SELECTOR_VIDEO
-;    mov gs, ax
+[bits 32]
+p_mode_start:
+   mov ax, SELECTOR_DATA
+   mov ds, ax
+   mov es, ax
+   mov ss, ax
+   mov esp,LOADER_STACK_TOP
+   mov ax, SELECTOR_VIDEO
+   mov gs, ax
 
-;    mov byte [gs:320], 'P'
+   mov byte [gs:320], 'P'
 
    jmp $
