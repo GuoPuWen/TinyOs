@@ -1,7 +1,12 @@
 ;-------------	 loader和kernel   ----------
 
-LOADER_BASE_ADDR equ 0x900 
+LOADER_BASE_ADDR equ 0x900
+LOADER_STACK_TOP equ LOADER_BASE_ADDR 
 LOADER_START_SECTOR equ 0x2
+
+KERNEL_BIN_BASE_ADDR equ 0x70000
+KERNEL_START_SECTOR equ 0x9
+KERNEL_ENTRY_POINT equ 0xc0001500
 
 ;--------------   gdt描述符属性  -------------
 DESC_G_4K   equ	  1_00000000000000000000000b   
@@ -43,4 +48,7 @@ PG_RW_R	 equ  00b
 PG_RW_W	 equ  10b 
 PG_US_S	 equ  000b 
 PG_US_U	 equ  100b 
+
+;------------ 程序段定义
+PT_NULL equ 0
 

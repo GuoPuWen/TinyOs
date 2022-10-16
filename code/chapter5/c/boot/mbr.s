@@ -29,7 +29,7 @@ SECTION MBR vstart=0x7c00         ;MBR地址 计算机开机后访问硬盘时�
    int     10h                     ; int 10h
 
 ; 输出 字符串MBR
-   mov byte [gs:0x00],'1'
+   mov byte [gs:0x00],'2'
    mov byte [gs:0x01],0xA4
 
    mov byte [gs:0x02],' '
