@@ -421,3 +421,23 @@
 00017407876i[PLUGIN] reset of 'iodebug' plugin device by virtual method
 00017407876i[PLUGIN] reset of 'extfpuirq' plugin device by virtual method
 00017407876i[PLUGIN] reset of 'usb_uhci' plugin device by virtual method
+00017407879i[      ] dbg: Quit
+00017407879i[CPU0  ] CPU is in real mode (active)
+00017407879i[CPU0  ] CS.mode = 16 bit
+00017407879i[CPU0  ] SS.mode = 16 bit
+00017407879i[CPU0  ] EFER   = 0x00000000
+00017407879i[CPU0  ] | EAX=00000000  EBX=00000000  ECX=00000000  EDX=00000000
+00017407879i[CPU0  ] | ESP=00000000  EBP=00000000  ESI=00000000  EDI=00000000
+00017407879i[CPU0  ] | IOPL=0 id vip vif ac vm rf nt of df if tf sf ZF af PF cf
+00017407879i[CPU0  ] | SEG sltr(index|ti|rpl)     base    limit G D
+00017407879i[CPU0  ] |  CS:f000( 1e00| 0|  0) 000f0000 0000ffff 0 0
+00017407879i[CPU0  ] |  DS:0000( 0000| 0|  0) 00000000 0000ffff 0 0
+00017407879i[CPU0  ] |  SS:0000( 0000| 0|  0) 00000000 0000ffff 0 0
+00017407879i[CPU0  ] |  ES:0000( 0000| 0|  0) 00000000 0000ffff 0 0
+00017407879i[CPU0  ] |  FS:0000( 0000| 0|  0) 00000000 0000ffff 0 0
+00017407879i[CPU0  ] |  GS:0000( 0000| 0|  0) 00000000 0000ffff 0 0
+00017407879i[CPU0  ] | EIP=0000e05d (0000e05d)
+00017407879i[CPU0  ] | CR0=0x60000010 CR2=0x00000000
+00017407879i[CPU0  ] | CR3=0x00000000 CR4=0x00000000
+00017407879i[CMOS  ] Last time is 1665842586 (Sat Oct 15 22:03:06 2022)
+00017407879i[SIM   ] quit_sim called with exit code 0
