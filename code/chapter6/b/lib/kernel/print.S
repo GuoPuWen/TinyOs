@@ -48,7 +48,7 @@ put_char:
     jmp .set_cursor
 
 .put_other:
-    shr bx, 1                   ;获取显存地址
+    shl bx, 1                   ;获取显存地址
     mov [gs:bx], cl             ;插入字符
     inc bx  
     mov byte [gs:bx], 0x07      ;字符属性
