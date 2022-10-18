@@ -4,7 +4,30 @@ SELECTOR_VIDEO  equ (0x0003 << 3) + TI_GDT + RPL0
 
 [bits 32]
 section .text
-; 功能描述:把栈中的1个字符写入光标所在处
+
+;put_str 打印以0字符结尾的字符串
+global put_str:
+put_str:
+    push ebx
+    push ecx
+    xor ecx, ecx                ;exc存储参数
+    mov ebx, [esp + 12]         ;取出字符串头地址
+.goon
+    mov cl, [ebx]
+    cmp cl, 0
+    jz .str_over
+    push ecx                    ;入参
+    call put_char
+    add esp, 4                  ;还原
+    inc ebx
+    jmp .goon
+.str_over:
+    pop ecx
+    pop ebx
+    ret
+
+
+; 功能描述:把栈中的1个字符写入光标所在处 
 global put_char
 put_char:
     pushad                      ;备份32位寄存器环境
@@ -108,7 +131,6 @@ put_char:
  .put_char_done: 
    popad
    ret
-
 
 
 
