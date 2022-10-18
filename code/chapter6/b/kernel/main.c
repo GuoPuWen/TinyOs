@@ -1,6 +1,6 @@
 #include "print.h"
 void main(void) {
-    put_str("kernel\n");
-    put_str("hello world");
+
+    put_int(0x00021a3f);
     while(1);
 }
