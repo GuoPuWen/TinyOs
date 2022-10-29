@@ -1,0 +1,25 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I am kernel
+init_all
+idt_init start
+idt_desc_init end  pic_init done
+idt_init done
+interrupt occur!
+
