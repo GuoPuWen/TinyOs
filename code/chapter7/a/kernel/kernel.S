@@ -4,6 +4,8 @@
 
 extern put_str                          ; 外部函数 打印字符串
 
+extern idt_table                         ;引用外部 中断处理程序数组
+
 section .data
 intr_str db "interrupt occur!", 0xa, 0
 global intr_entry_table                ; 中断数组 声明为外部
@@ -13,21 +15,37 @@ intr_entry_table:
 section .text
 intr%1entry:
     %2                                 ; 是否压入错误码
-    push intr_str                      ; 压入待打印的字符串
-    call put_str
-    add  esp, 4                         ;跳过参数 恢复现场
+    ;保存上下文 后面调用函数
+    push ds
+    push es
+    push fs
+    push gs
+    pushad                              ; EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI,EAX最先入栈
 
-    ;手动结束中断
-    mov al, 0x20                        ; 中断结束EOI
-    out 0xa0, al                        ; 向从片发送
-    out 0x20, al                        ; 向主片发送
+    ; 结束中断信号
+    mov al, 0x20                        ;中断结束命令 EOI          
+    out 0xa0, al                        ;向从片发送
+    out 0x20, al                        ;向主片发送
 
-    add esp, 4                          ;跳过错误码
-    iret                                ; 从中断返回
+    push %1                             ;压入中断向量号
+    call [idt_table + %1 * 4]           ;一个函数地址占字节
+    jmp intr_exit
 
 section .data  
     dd intr%1entry                      ;存储各个中断程序入口 nasm编译时会将相同段合并
 %endmacro
+
+section .text
+global intr_exit
+intr_exit:
+    add esp, 4                         ; 跳过中断号
+    popad
+    pop gs
+    pop fs
+    pop es
+    pop ds
+    add esp, 4                          ; 跳过错误码
+    iretd
 
 ;定义33个中断
 VECTOR 0x00,ZERO
@@ -63,5 +81,3 @@ VECTOR 0x1d,ERROR_CODE
 VECTOR 0x1e,ERROR_CODE
 VECTOR 0x1f,ZERO 
 VECTOR 0x20,ZERO
-
-
