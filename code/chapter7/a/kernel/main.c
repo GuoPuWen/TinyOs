@@ -5,8 +5,8 @@ void main(void) {
 
     put_str("I am kernel\n");   
     
-    
     init_all();
+
     asm volatile("sti");
     while(1);
 }
