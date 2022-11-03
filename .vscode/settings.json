@@ -2,6 +2,9 @@
     "files.associations": {
         "print.h": "c",
         "stdint.h": "c",
-        "std_int.h": "c"
+        "std_int.h": "c",
+        "interrupt.h": "c",
+        "io.h": "c",
+        "init.h": "c"
     }
 }
