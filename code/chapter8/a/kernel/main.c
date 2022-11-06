@@ -2,7 +2,7 @@
 #include "init.h"
 #include "debug.h"
 
-void main(void) {
+int main(void) {
 
 
     put_str("I am kernel!!!\n");   
@@ -11,4 +11,5 @@ void main(void) {
     ASSERT(1==1);   
     asm volatile("sti");
     while(1);
+    return 0;
 }
