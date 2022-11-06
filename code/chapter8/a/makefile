@@ -24,23 +24,23 @@ $(BUILD_DIR)/loader.bin: boot/loader.S
 
 ##############     c代码编译     ###############
 $(BUILD_DIR)/main.o: kernel/main.c lib/kernel/print.h \
-        lib/std_int.h kernel/init.h
+        lib/std_int.h lib/kernel/init.h
 	$(CC) $(CFLAGS) $< -o $@
 
-$(BUILD_DIR)/init.o: kernel/init.c kernel/init.h lib/kernel/print.h \
-        lib/std_int.h kernel/interrupt.h device/timer.h
+$(BUILD_DIR)/init.o: kernel/init.c lib/kernel/init.h lib/kernel/print.h \
+        lib/std_int.h lib/kernel/interrupt.h device/timer.h
 	$(CC) $(CFLAGS) $< -o $@
 
-$(BUILD_DIR)/interrupt.o: kernel/interrupt.c kernel/interrupt.h \
-        lib/std_int.h kernel/global.h lib/kernel/io.h lib/kernel/print.h
+$(BUILD_DIR)/interrupt.o: kernel/interrupt.c lib/kernel/interrupt.h \
+        lib/std_int.h lib/kernel/global.h lib/kernel/io.h lib/kernel/print.h
 	$(CC) $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/timer.o: device/timer.c device/timer.h lib/std_int.h\
          lib/kernel/io.h lib/kernel/print.h
 	$(CC) $(CFLAGS) $< -o $@
 
-$(BUILD_DIR)/debug.o: kernel/debug.c kernel/debug.h \
-        lib/kernel/print.h lib/std_int.h kernel/interrupt.h
+$(BUILD_DIR)/debug.o: kernel/debug.c lib/kernel/debug.h \
+        lib/kernel/print.h lib/std_int.h lib/kernel/interrupt.h
 	$(CC) $(CFLAGS) $< -o $@
 
 ##############    汇编代码编译    ###############

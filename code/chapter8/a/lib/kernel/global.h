@@ -1,9 +1,10 @@
 #ifndef __KERNEL_GLOBAL_H
 #define __KERNEL_GLOBAL_H
-#include "std_int.h"
-
-
-
+#include "../std_int.h"
+#include "string.h"
+#include "print.h"
+#include "interrupt.h"
+#include "debug.h"
 
 #define	 RPL0  0
 #define	 RPL1  1
