@@ -9,5 +9,5 @@ struct bitmap {
 void bitmap_init(struct bitmap* bmp);
 bool bitmap_scan_test(struct bitmap* bmp, uint32_t bit_idx);
 int bitmap_scan(struct bitmap* bmp, uint32_t cnt );
-void bitmap_set(struct bitmap* bmp, uint32_t bit_idx, int8_t value) 
+void bitmap_set(struct bitmap* bmp, uint32_t bit_idx, int8_t value);
 #endif

@@ -8,11 +8,11 @@ LIB = -I lib/ -I lib/kernel/ -I lib/user/ -I kernel/ -I device/
 ASFLAGS = -f elf 
 ASBINLIB = -I boot/include/
 CFLAGS = -m32 -Wall $(LIB) -c -fno-builtin -W -Wstrict-prototypes \
-         -Wmissing-prototypes -fno-stack-protector
+         -Wmissing-prototypes -fno-stack-protector -Wunused-value
 LDFLAGS = -melf_i386 -Ttext $(ENTRY_POINT) -e main -Map $(BUILD_DIR)/kernel.map
 OBJS = $(BUILD_DIR)/main.o $(BUILD_DIR)/init.o $(BUILD_DIR)/interrupt.o \
       $(BUILD_DIR)/timer.o $(BUILD_DIR)/kernel.o $(BUILD_DIR)/print.o \
-      $(BUILD_DIR)/debug.o 
+      $(BUILD_DIR)/debug.o $(BUILD_DIR)/string.o  $(BUILD_DIR)/bitmap.o $(BUILD_DIR)/memory.o 
 
 ##############     MBR代码编译     ############### 
 $(BUILD_DIR)/mbr.bin: boot/mbr.s 
@@ -40,7 +40,19 @@ $(BUILD_DIR)/timer.o: device/timer.c device/timer.h lib/std_int.h\
 	$(CC) $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/debug.o: kernel/debug.c lib/kernel/debug.h \
-        lib/kernel/print.h lib/std_int.h lib/kernel/interrupt.h
+        lib/kernel/print.h lib/std_int.h lib/kernel/interrupt.h 
+	$(CC) $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/string.o: lib/string.c lib/string.h \
+         lib/std_int.h lib/kernel/global.h lib/kernel/debug.h
+	$(CC) $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/bitmap.o: kernel/bitmap.c lib/kernel/bitmap.h \
+        lib/kernel/print.h lib/std_int.h  lib/kernel/global.h lib/string.h
+	$(CC) $(CFLAGS) $< -o $@
+
+$(BUILD_DIR)/memory.o: kernel/memory.c lib/kernel/memory.h \
+        lib/kernel/print.h lib/std_int.h 
 	$(CC) $(CFLAGS) $< -o $@
 
 ##############    汇编代码编译    ###############

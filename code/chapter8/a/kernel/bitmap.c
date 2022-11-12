@@ -39,6 +39,7 @@ int bitmap_scan(struct bitmap* bmp, uint32_t cnt ) {
     uint32_t next_bit = bit_idx_start + 1;                      // 用于记录找到的空闲位的个数
 
     bit_idx_start = -1;
+    uint32_t count = 1;
     while(bit_left-- > 0) {
         if(!(bitmap_scan_test(bmp, next_bit))) {
             count++;

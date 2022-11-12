@@ -8,8 +8,6 @@ int main(void) {
     put_str("I am kernel!!!\n");   
     
     init_all();
-    ASSERT(1==1);   
-    asm volatile("sti");
     while(1);
     return 0;
 }

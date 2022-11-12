@@ -5,8 +5,6 @@
 #define PAGE_SIZE 4096          //一页的大小
 #define MEM_BITMAP_BASE   0xc009a000       // 页位图开始地址 总共4页 可以分配512M的内存
 #define K_HEAD_START      0xc0100000         // 虚拟地址跨越低端1m
-
-
 struct pool {
     struct bitmap pool_bitmap;
     uint32_t phy_addr_start;            //物理内存的起始地址
@@ -16,9 +14,7 @@ struct pool {
 struct pool kernel_pool, user_pool;     //内核物理内存池 用户物理内存池
 struct virtual_addr kernel_vaddr;        //内核虚拟地址内存池
 
- 
-
-static void mem_init(uint32_t all_men) {
+static void mem_pool_init(uint32_t all_men) {
     put_str("mem_pool_init start\n");
     // 页目录本身1个 769～1022 共254个 0和768指向同低端1m占1个 所以256个
     uint32_t page_table_size = PAGE_SIZE * 256;     //记录页目录表和页表占用的字节大小
@@ -66,7 +62,7 @@ static void mem_init(uint32_t all_men) {
     //  初始化内核虚拟地址位图 
     kernel_vaddr.vaddr_bitmap.btmap_byte_len = kbm_length;
     kernel_vaddr.vaddr_bitmap.bits = (void*)(MEM_BITMAP_BASE + kbm_length + ubm_length);
-    kernel_vaddr.vaddr_bitmap = K_HEAD_START;
+    kernel_vaddr.vaddr_start = K_HEAD_START;
 
     bitmap_init(&kernel_vaddr.vaddr_bitmap);
     put_str("mem_pool_init done\n");
@@ -74,8 +70,8 @@ static void mem_init(uint32_t all_men) {
 }
 void mem_init() {
     put_str("mem_init start\n");
-    uint32_t mem_byte_total = (*(uint32_t*)(0xb00));
-    mem_init(mem_byte_total);
+    uint32_t mem_byte_total = (*(uint32_t*)(0xb03));
+    mem_pool_init(mem_byte_total);
     put_str("mem_init done\n");
 }
 
