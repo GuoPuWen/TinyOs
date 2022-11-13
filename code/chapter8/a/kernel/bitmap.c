@@ -50,6 +50,7 @@ int bitmap_scan(struct bitmap* bmp, uint32_t cnt ) {
             bit_idx_start = next_bit - cnt + 1; // cnt = next_bit - bit_idx_start + 1;
             break;
         }
+        next_bit++;
     }
     return bit_idx_start;
 }
